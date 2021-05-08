@@ -10,5 +10,7 @@ const App = () => {
         </NavigationContainer>
     );
 };
+//Fanuel
+console.log("lapar");
 
 export default App;
