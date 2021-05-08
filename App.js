@@ -12,5 +12,6 @@ const App = () => {
 };
 //Fanuel
 console.log("lapar");
+console.log("skali");
 
 export default App;
