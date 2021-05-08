@@ -10,5 +10,8 @@ const App = () => {
         </NavigationContainer>
     );
 };
+//Fanuel
+console.log("lapar");
+console.log("skali");
 
 export default App;
