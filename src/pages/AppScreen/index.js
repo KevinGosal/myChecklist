@@ -2,6 +2,59 @@ import React, {Component} from 'react';
 import { View, Text, AsyncStorage, StyleSheet, TouchableOpacity, ScrollView, TextInput,
   Keyboard, ActivityIndicator, } from 'react-native';
 
+//Brilliant
+export default class App extends Component {
+  state = {
+    formIsi: null,
+    list: [],
+    memuat: false,
+    masukanTugas: '',
+  };
+  componentDidMount = () => {
+    this.setState({memuat: true});
+    AsyncStorage.getItem('list')
+      .then(list => {
+        if (list) {
+          this.setState({list: JSON.parse(list), memuat: false});
+        } else {
+          this.setState({list: [], memuat: false});
+        }
+      })
+      .catch(err => {
+        this.setState({memuat: false});
+      });
+  };
+  tambahTugas = () => {
+    let list = this.state.list;
+    list.push('');
+    this.setState({list: list});
+    this.saveToStorage();
+    
+    this.formPengisian(list.length-1);
+  };
+  formPengisian = index => {
+    if (this.state.isEdit !== index) {
+      this.setState({isEdit: index, editText: this.state.list[index]});
+    }
+  };
+  daftarTugas = (text, index) => {
+    let list = this.state.list;
+    list[index] = text;
+    this.setState({list: list, formIsi: null, editText: ''});
+
+    this.saveToStorage();
+  };
+  saveToStorage = () => {
+    let data = JSON.stringify(this.state.list);
+    AsyncStorage.setItem('list', data);
+  };
+  hapusTugas = index => {
+    let list = this.state.list;
+    list.splice(index, 1);
+    this.setState({list: list});
+    this.saveToStorage();
+  };
+
 //Eben
     render() {
       return (
